@@ -29,7 +29,7 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
             {
                 unsafe
                 {
-                    return RustMethods.TakeString(RustMethods.get_plugin_info(0));
+                    return RustMethods.TakeString(RustMethods.get_plugin_info(0), false);
                 }
             }
         }
@@ -43,7 +43,7 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
             {
                 unsafe
                 {
-                    return RustMethods.TakeString(RustMethods.get_plugin_info(1));
+                    return RustMethods.TakeString(RustMethods.get_plugin_info(1), false);
                 }
             }
         }
@@ -57,7 +57,7 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
             {
                 unsafe
                 {
-                    return RustMethods.TakeString(RustMethods.get_plugin_info(2));
+                    return RustMethods.TakeString(RustMethods.get_plugin_info(2), false);
                 }
             }
         }
@@ -91,11 +91,11 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
                         RustMethods.CSearchResult csr = x.ptr[i];
                         results.Add(new Result
                         {
-                            QueryTextDisplay = RustMethods.CastString(csr.query_text_display),
-                            IcoPath = RustMethods.CastString(csr.ico_path),
-                            Title = RustMethods.CastString(csr.title),
-                            SubTitle = RustMethods.CastString(csr.subtitle),
-                            ToolTipData = new ToolTipData(RustMethods.CastString(csr.tooltip_a), RustMethods.CastString(csr.tooltip_b)),
+                            QueryTextDisplay = RustMethods.CastString(csr.query_text_display, true),
+                            IcoPath = RustMethods.CastString(csr.ico_path, true),
+                            Title = RustMethods.CastString(csr.title, true),
+                            SubTitle = RustMethods.CastString(csr.subtitle, true),
+                            ToolTipData = new ToolTipData(RustMethods.CastString(csr.tooltip_a, true), RustMethods.CastString(csr.tooltip_b, true)),
                             Action = _ =>
                             {
                                 return true;
@@ -176,10 +176,10 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
                         RustMethods.CContextMenuResult csr = x.ptr[i];
                         results.Add(new ContextMenuResult
                         {
-                            PluginName = RustMethods.CastString(csr.plugin_name),
-                            Title = RustMethods.CastString(csr.title),
-                            FontFamily = RustMethods.CastString(csr.font_family),
-                            Glyph = RustMethods.CastString(csr.glyph),
+                            PluginName = RustMethods.CastString(csr.plugin_name, true),
+                            Title = RustMethods.CastString(csr.title, true),
+                            FontFamily = RustMethods.CastString(csr.font_family, true),
+                            Glyph = RustMethods.CastString(csr.glyph, true),
                             AcceleratorKey = (Key)csr.accelerator_key,
                             AcceleratorModifiers = (ModifierKeys)csr.accelerator_modifiers,
                             Action = _ =>

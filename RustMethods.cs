@@ -95,15 +95,23 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
             public CContextMenuResult* ptr;
         }
 
-        public unsafe static String TakeString(string* cString)
+        public unsafe static String TakeString(string* cString, bool base64)
         {
             var str = new String((sbyte*)cString);
             free_c_string(cString);
+            if (base64)
+            {
+                return Encoding.UTF8.GetString(Convert.FromBase64String(str));
+            }
             return str;
         }
-        public unsafe static String CastString(string* cString)
+        public unsafe static String CastString(string* cString, bool base64)
         {
             var str = new String((sbyte*)cString);
+            if (base64)
+            {
+                return Encoding.UTF8.GetString(Convert.FromBase64String(str));
+            }
             return str;
         }
 
