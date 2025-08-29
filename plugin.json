@@ -1,0 +1,14 @@
+{
+  "ID": "D5B6F9FA29F7488493010F58BC251E6C",
+  "ActionKeyword": "myplugin",
+  "IsGlobal": false,
+  "Name": "RustRun",
+  "Author": "duck",
+  "Version": "0.82.1",
+  "Language": "csharp",
+  "Website": "https://github.com/duckfromdiscord/RustRun",
+  "ExecuteFileName": "Community.PowerToys.Run.Plugin.MyPlugin.dll",
+  "IcoPathDark": "Images\\myplugin.dark.png",
+  "IcoPathLight": "Images\\myplugin.light.png",
+  "DynamicLoading": false
+}
