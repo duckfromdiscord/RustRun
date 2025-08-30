@@ -102,7 +102,7 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
                             {
                                 return ch.run();
                             },
-                            ContextData = search,
+                            ContextData = RustMethods.CastString(csr.context, true),
                         });
                         drop_search_result(csr);
                     }
@@ -150,21 +150,26 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
                                     {
                                         fixed (char* tooltip_b = selectedResult.ToolTipData.Text)
                                         {
-                                            x = RustMethods.get_context_menu(new CSSearchResult
-                                            {
-                                                query_text_display_length = selectedResult.QueryTextDisplay.Length,
-                                                query_text_display = (ushort*)query_text_display,
-                                                ico_path_length = selectedResult.IcoPath.Length,
-                                                ico_path = (ushort*)ico_path,
-                                                title_length = selectedResult.Title.Length,
-                                                title = (ushort*)title,
-                                                subtitle_length = selectedResult.SubTitle.Length,
-                                                subtitle = (ushort*)subtitle,
-                                                tooltip_a_length = selectedResult.ToolTipData.Title.Length,
-                                                tooltip_a = (ushort*)tooltip_a,
-                                                tooltip_b_length = selectedResult.ToolTipData.Text.Length,
-                                                tooltip_b = (ushort*)tooltip_b,
-                                            });
+                                            string context_cs = selectedResult.ContextData as string;
+                                            fixed (char* context = context_cs) { 
+                                                x = RustMethods.get_context_menu(new CSSearchResult
+                                                {
+                                                    query_text_display_length = selectedResult.QueryTextDisplay.Length,
+                                                    query_text_display = (ushort*)query_text_display,
+                                                    ico_path_length = selectedResult.IcoPath.Length,
+                                                    ico_path = (ushort*)ico_path,
+                                                    title_length = selectedResult.Title.Length,
+                                                    title = (ushort*)title,
+                                                    subtitle_length = selectedResult.SubTitle.Length,
+                                                    subtitle = (ushort*)subtitle,
+                                                    tooltip_a_length = selectedResult.ToolTipData.Title.Length,
+                                                    tooltip_a = (ushort*)tooltip_a,
+                                                    tooltip_b_length = selectedResult.ToolTipData.Text.Length,
+                                                    tooltip_b = (ushort*)tooltip_b,
+                                                    context_length = context_cs.Length,
+                                                    context = (ushort*)context,
+                                                });
+                                            }
                                         }
                                     }
                                 }

@@ -59,6 +59,7 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
             public string* tooltip_a;
             public string* tooltip_b;
             public void* action;
+            public string* context;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -97,6 +98,8 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
             public int tooltip_b_length;
             public ushort* tooltip_b;
             public void* action;
+            public int context_length;
+            public ushort* context;
         }
 
         [StructLayout(LayoutKind.Sequential)]
