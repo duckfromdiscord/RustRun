@@ -70,6 +70,7 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
             public string* glyph;
             public int accelerator_key;
             public int accelerator_modifiers;
+            public void* action;
         }
 
         [StructLayout(LayoutKind.Sequential)]

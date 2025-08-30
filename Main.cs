@@ -176,6 +176,7 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
                     for (nuint i = 0; i < x.len; i++)
                     {
                         RustMethods.CContextMenuResult csr = x.ptr[i];
+                        CallbackHolder ch = new(csr.action);
                         results.Add(new ContextMenuResult
                         {
                             PluginName = RustMethods.CastString(csr.plugin_name, true),
@@ -186,7 +187,7 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
                             AcceleratorModifiers = (ModifierKeys)csr.accelerator_modifiers,
                             Action = _ =>
                             {
-                                return true;
+                                return ch.run();
                             }
                         });
                         drop_context_menu_result(csr);
