@@ -34,6 +34,14 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
 
 
 
+        [DllImport("rustinteroprust.dll", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        public static extern unsafe bool callback_trampoline(void* c);
+
+
+        [DllImport("rustinteroprust.dll", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        public static extern unsafe void callback_dealloc(void* c);
+
+
 
         [DllImport("rustinteroprust.dll", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern unsafe string* get_plugin_info(byte which);
@@ -50,6 +58,7 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
             public string* subtitle;
             public string* tooltip_a;
             public string* tooltip_b;
+            public void* action;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -86,6 +95,7 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
             public ushort* tooltip_a;
             public int tooltip_b_length;
             public ushort* tooltip_b;
+            public void* action;
         }
 
         [StructLayout(LayoutKind.Sequential)]

@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Input;
 using System.Xaml;
+using Community.PowerToys.Run.Plugin.MyPlugin;
 using ManagedCommon;
 using Wox.Plugin;
 using Wox.Plugin.Common.Win32;
@@ -89,6 +90,7 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
                     for (nuint i = 0; i < x.len; i++)
                     {
                         RustMethods.CSearchResult csr = x.ptr[i];
+                        CallbackHolder ch = new(csr.action);
                         results.Add(new Result
                         {
                             QueryTextDisplay = RustMethods.CastString(csr.query_text_display, true),
@@ -98,7 +100,7 @@ namespace Community.PowerToys.Run.Plugin.RustInterop
                             ToolTipData = new ToolTipData(RustMethods.CastString(csr.tooltip_a, true), RustMethods.CastString(csr.tooltip_b, true)),
                             Action = _ =>
                             {
-                                return true;
+                                return ch.run();
                             },
                             ContextData = search,
                         });
